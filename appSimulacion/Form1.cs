@@ -94,7 +94,7 @@ namespace appSimulacion
                 double masa = double.Parse(tb_masa.Text.Replace(".", ","));
                 double Radio = double.Parse(tb_long.Text.Replace(".", ",")) / 2;
 
-                if (masa <= 0 || Radio <=0 || Radio <= 0)
+                if (masa <= 0 || Radio <=0 || K <= 0)
                 {
                     MessageBox.Show("La masa, la longitud y la constante del resorte deben ser mayores que cero.");
                     return;
@@ -144,13 +144,13 @@ namespace appSimulacion
                     Amplitud = double.Parse(tb_CIx.Text.Replace(".", ","));
                     desfase = double.Parse(tb_CIv.Text.Replace(".", ","));
                 }
-                
+
 
 
                 //saber si el angulo es mayor a 15°
                 if ((Amplitud / Radio) > Math.PI / 12)
                 {
-                    MessageBox.Show("Con los datos ingresados el angulo maximo seria mayor a 15°, por lo tanto no se comportara como un M.A.S");
+                    MessageBox.Show("Con los datos ingresados el angulo maximo seria mayor a 15°, por lo tanto no se comportara como un M.A.S \nEsto causado por " + this.comboBox1.Text);
                     return;
                 }
 
@@ -158,14 +158,27 @@ namespace appSimulacion
                 BloquearCasillas(true);
                 try
                 {
-                    this.GraficarFunciones();
-                    
+                    if (K < 2)
+                    {
+                        Logica.clsLogica AuxP1 = new Logica.clsLogica(2, masa, Amplitud, Radio, desfase);
+                        this.GraficarFunciones(AuxP1);
+                    }
+                    else
+                    {
+                        this.GraficarFunciones(p1);
+                    }
                 }
                 catch (Exception)
                 {
                 }
                
                 MostrarFuncion();
+                this.label11.Text = " "+p1.getAmplitudInicial().ToString("0.##");
+                this.label12.Text = "-"+p1.getAmplitudInicial().ToString("0.##");
+                this.label13.Text = " " + p1.getVelocidadMax().ToString("0.##");
+                this.label14.Text = "-"+p1.getVelocidadMax().ToString("0.##");
+                this.label15.Text = " " + p1.getAceleracionMax().ToString("0.##");
+                this.label16.Text = "-"+p1.getAceleracionMax().ToString("0.##");
                 timer1.Start();
 
             }
@@ -265,8 +278,6 @@ namespace appSimulacion
             }
         }
 
-
-        //TODO: mejorar esta descripcion.
         /// <summary>
         /// cuando se modifica el texto en la caja de texto del tiempo, entonces como solo esta habilitada 
         /// en los que necesitan el tiempo pues los va calculando a medida que se va escribiendo
@@ -392,16 +403,16 @@ namespace appSimulacion
         }
 
         //LLAMADO A GRAFICAR FUNCIONES
-        private void GraficarFunciones()
+        private void GraficarFunciones(Logica.clsLogica SimulacionObj)
         {
-            this.GraficarPosicion();
-            this.GraficarVelocidad();
-            this.GraficarAceleracion();
+            this.GraficarPosicion(SimulacionObj);
+            this.GraficarVelocidad(SimulacionObj);
+            this.GraficarAceleracion(SimulacionObj);
 
         }
 
         //METODOS PARA GRAFICAR LAS FUNCIONES
-        private void GraficarPosicion()
+        private void GraficarPosicion(Logica.clsLogica SimulacionObj)
         {
 
             System.Drawing.Graphics Posicion = this.pictureBox3.CreateGraphics();
@@ -421,7 +432,7 @@ namespace appSimulacion
             con = 0;
             for (double x = xcentro * -1; x < xcentro * 2; x += 0.1)
             {
-                valores[con] = Math.Sin(x + p1.getDesfase());
+                valores[con] = Math.Sin(x + SimulacionObj.getDesfase());
                 con = con + 1;
             }
 
@@ -429,10 +440,10 @@ namespace appSimulacion
             //ciclo for para poder sacar las coordenadas
             for (double xx = xcentro * -1 + 0.1; xx < xcentro * 2; xx += 0.1)
             {
-                puntox1 = (xx - 0.1) * (pictureBox3.Width / (Convert.ToInt16(p1.getFrecuencia()) * 2)); //mirar entre que se divide
+                puntox1 = (xx - 0.1) * (pictureBox3.Width / (Convert.ToInt16(SimulacionObj.getFrecuencia()) * 2)); //mirar entre que se divide
                 puntoy1 = valores[con - 1] * ycentro;
 
-                puntox2 = xx * (pictureBox3.Width / (Convert.ToInt16(p1.getFrecuencia()) * 2)); //mirar entre que se divide
+                puntox2 = xx * (pictureBox3.Width / (Convert.ToInt16(SimulacionObj.getFrecuencia()) * 2)); //mirar entre que se divide
                 puntoy2 = valores[con] * ycentro;
 
                 Posicion.DrawLine(LapizPosicion, Convert.ToSingle(puntox1), Convert.ToSingle(puntoy1), Convert.ToSingle(puntox2), Convert.ToSingle(puntoy2));
@@ -440,7 +451,7 @@ namespace appSimulacion
             }
         }
 
-        private void GraficarVelocidad()
+        private void GraficarVelocidad(Logica.clsLogica SimulacionObj)
         {
 
             System.Drawing.Graphics Velocidad = this.pictureBox2.CreateGraphics();
@@ -459,7 +470,7 @@ namespace appSimulacion
             con = 0;
             for (double x = xcentro * -1; x < xcentro * 2; x += 0.1)
             {
-                valores[con] = Math.Cos(x + p1.getDesfase());
+                valores[con] = Math.Cos(x + SimulacionObj.getDesfase());
                 con = con + 1;
             }
 
@@ -467,10 +478,10 @@ namespace appSimulacion
             //ciclo for para poder sacar las coordenadas
             for (double xx = xcentro * -1 + 0.1; xx < xcentro * 2; xx += 0.1)
             {
-                puntox1 = (xx - 0.1) * (pictureBox2.Width / (Convert.ToInt16(p1.getFrecuencia()) * 2)); //mirar entre que se divide jaja
+                puntox1 = (xx - 0.1) * (pictureBox2.Width / (Convert.ToInt16(SimulacionObj.getFrecuencia()) * 2)); //mirar entre que se divide jaja
                 puntoy1 = valores[con - 1] * ycentro;
 
-                puntox2 = xx * (pictureBox2.Width / (Convert.ToInt16(p1.getFrecuencia()) * 2)); //mirar entre que se divide jaja
+                puntox2 = xx * (pictureBox2.Width / (Convert.ToInt16(SimulacionObj.getFrecuencia()) * 2)); //mirar entre que se divide jaja
                 puntoy2 = valores[con] * ycentro;
 
                 Velocidad.DrawLine(LapizPosicion, Convert.ToSingle(puntox1), Convert.ToSingle(puntoy1), Convert.ToSingle(puntox2), Convert.ToSingle(puntoy2));
@@ -478,7 +489,7 @@ namespace appSimulacion
             }
         }
 
-        private void GraficarAceleracion()
+        private void GraficarAceleracion(Logica.clsLogica SimulacionObj)
         {
 
             System.Drawing.Graphics Aceleracion = this.pictureBox4.CreateGraphics();
@@ -498,7 +509,7 @@ namespace appSimulacion
             con = 0;
             for (double x = xcentro * -1; x < xcentro * 2; x += 0.1)
             {
-                valores[con] = Math.Sin(x + Math.PI + p1.getDesfase());
+                valores[con] = Math.Sin(x + Math.PI + SimulacionObj.getDesfase());
                 con = con + 1;
             }
 
@@ -506,10 +517,10 @@ namespace appSimulacion
             //ciclo for para poder sacar las coordenadas
             for (double xx = xcentro * -1 + 0.1; xx < xcentro * 2; xx += 0.1)
             {
-                puntox1 = (xx - 0.1) * (pictureBox4.Width / (Convert.ToInt16(p1.getFrecuencia()) * 2)); //mirar entre que se divide jaja
+                puntox1 = (xx - 0.1) * (pictureBox4.Width / (Convert.ToInt16(SimulacionObj.getFrecuencia()) * 2)); //mirar entre que se divide jaja
                 puntoy1 = valores[con - 1] * ycentro;
 
-                puntox2 = xx * (pictureBox4.Width / (Convert.ToInt16(p1.getFrecuencia()) * 2)); //mirar entre que se divide jaja
+                puntox2 = xx * (pictureBox4.Width / (Convert.ToInt16(SimulacionObj.getFrecuencia()) * 2)); //mirar entre que se divide jaja
                 puntoy2 = valores[con] * ycentro;
 
                 Aceleracion.DrawLine(LapizPosicion, Convert.ToSingle(puntox1), Convert.ToSingle(puntoy1), Convert.ToSingle(puntox2), Convert.ToSingle(puntoy2));

@@ -70,6 +70,14 @@ namespace appSimulacion.Logica
             return frecuencia;
         }
 
+        public double getVelocidadMax()
+        {
+            return this.amplitudMax * this.w;
+        }
+        public double getAceleracionMax()
+        {
+            return this.amplitudMax * Math.Pow(this.w,2);
+        }
         #endregion
 
         /// <summary>

@@ -55,3 +55,13 @@ C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\v\appSimulacion\obj\De
 C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\v\appSimulacion\obj\Debug\appSimulacion.pdb
 C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\v\appSimulacion\obj\Debug\appSimulacion.Simulación.resources
 D:\Brayan\Unicauca\SEMESTRE VI\Vibraciones y Ondas\appSimulacion-master\appSimulacion\obj\Debug\appSimulacion.Simulación.resources
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\bin\Debug\appSimulacion.exe.config
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\bin\Debug\appSimulacion.exe
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\bin\Debug\appSimulacion.pdb
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\obj\Debug\appSimulacion.csprojAssemblyReference.cache
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\obj\Debug\appSimulacion.Simulación.resources
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\obj\Debug\appSimulacion.Properties.Resources.resources
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\obj\Debug\appSimulacion.csproj.GenerateResource.cache
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\obj\Debug\appSimulacion.csproj.CoreCompileInputs.cache
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\obj\Debug\appSimulacion.exe
+C:\Users\Asus\Desktop\TrabajosU\SEM 6\Vibraciones y ondas\cc\appSimulacion\appSimulacion\obj\Debug\appSimulacion.pdb
